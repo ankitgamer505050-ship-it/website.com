@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>101% Loss Recovery - Mafia Number Sure Short Channel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1633328267629029');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1633328267629029&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    
+    <style>
+        :root {
+            --accent: #ff6a2b;
+            --accent2: #ff2a00;
+            --yt: #ff0000;
+            --telegram: #0088cc;
+            --bg: #0a0a0f;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: #ffffff;
+            --text-secondary: #cccccc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #060607, #0b0b0d, #1a1a1f);
+            color: var(--text);
+            min-height: 100vh;
+            width: 100%;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 106, 43, 0.15) 0%, rgba(255, 106, 43, 0) 70%);
+            animation: float 15s infinite linear;
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            right: 10%;
+            animation-delay: 5s;
+            animation-duration: 12s;
+        }
+
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            top: 20%;
+            right: -75px;
+            animation-delay: 8s;
+            animation-duration: 18s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(30px, -50px) rotate(120deg);
+            }
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: cardAppear 0.8s ease-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 106, 43, 0.2);
+        }
+
+        @keyframes cardAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .badge {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+            box-shadow: 0 4px 15px rgba(255, 106, 43, 0.4);
+            z-index: 2;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 4px 15px rgba(255, 106, 43, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(255, 106, 43, 0.7);
+            }
+            100% {
+                box-shadow: 0 4px 15px rgba(255, 106, 43, 0.4);
+            }
+        }
+
+        /* Increased Logo Size */
+        .logo-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            box-shadow: 0 10px 30px rgba(255, 106, 43, 0.4);
+            animation: logoGlow 3s infinite alternate;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes logoGlow {
+            0% {
+                box-shadow: 0 10px 30px rgba(255, 106, 43, 0.4);
+            }
+            100% {
+                box-shadow: 0 10px 40px rgba(255, 106, 43, 0.7);
+            }
+        }
+
+        .logo {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 10px 0 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        p.lead {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::after {
+            left: 100%;
+        }
+
+        .btn-join {
+            background: linear-gradient(90deg, var(--telegram), #2bb7f0);
+            color: #fff;
+        }
+
+        .btn-join:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(23, 162, 255, 0.4);
+        }
+
+        .btn-download {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: #fff;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 106, 43, 0.4);
+        }
+
+        .btn-youtube {
+            background: linear-gradient(90deg, var(--yt), #c00000);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-youtube:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        /* New Countdown Timer Styles */
+        .countdown-container {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 106, 43, 0.2);
+        }
+
+        .countdown-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 106, 43, 0.1);
+            border-radius: 12px;
+            padding: 15px 10px;
+            min-width: 80px;
+            border: 2px solid rgba(255, 106, 43, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: pulseBox 2s infinite alternate;
+        }
+
+        @keyframes pulseBox {
+            0% {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                box-shadow: 0 5px 20px rgba(255, 106, 43, 0.3);
+            }
+        }
+
+        .time-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(255, 106, 43, 0.5);
+        }
+
+        .time-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .notice {
+            background: rgba(255, 106, 43, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .notice-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .youtube-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 0, 0, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            animation: youtubeAppear 1s ease-out;
+        }
+
+        @keyframes youtubeAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .youtube-title {
+            color: var(--yt);
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .youtube-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 11px;
+            color: #888;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .card {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .logo-container {
+                width: 150px;
+                height: 150px;
+            }
+
+            .logo {
+                width: 140px;
+                height: 140px;
+            }
+
+            .time-box {
+                min-width: 70px;
+                padding: 12px 8px;
+            }
+
+            .time-value {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Background Animation -->
+<div class="bg-animation">
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    <div class="bg-circle circle-3"></div>
+</div>
+
+<div class="container">
+    <!-- Header Card -->
+    <div class="card">
+        <div class="badge">101% LOSS RECOVERY</div>
+
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://i.ibb.co/gbLzRNPw/Picsart-25-11-04-09-51-15-609.png" alt="Logo">
+            </div>
+        </div>
+
+        <h1>MAFIA NUMBER SURE SHORT CHANNEL</h1>
+        <p class="lead">Recover all your Losses with our proven strategies<br><strong style="color:var(--accent)">Get 101% Loss Recovery 🔥</strong></p>
+
+        <!-- Countdown Timer -->
+        <div class="countdown-container">
+            <div class="countdown-title">Offer Ends In:</div>
+            <div class="countdown-timer">
+                <div class="time-box">
+                    <div class="time-value" id="hours">00</div>
+                    <div class="time-label">Hours</div>
+                </div>
+                <div class="time-box">
+                    <div class="time-value" id="minutes">01</div>
+                    <div class="time-label">Minutes</div>
+                </div>
+                <div class="time-box">
+                    <div class="time-value" id="seconds">30</div>
+                    <div class="time-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+        
+        <a class="btn btn-join" href="https://t.me/+sjprwwzOMyQ2ODg9" target="_blank">
+            <i class="fab fa-telegram"></i> Join Telegram Fast
+        </a>
+    </div>
+
+    <!-- Private Number Hack Card -->
+    <div class="card">
+        <h2 style="margin-bottom: 20px; color: var(--accent);"><i class="fas fa-user-secret"></i> Private Number Hack</h2>
+        
+        <p class="lead">Get access to our exclusive number hack tool</p>
+        
+        <a class="btn btn-download" href="https://github.com/ankitgamer505050-ship-it/website.com/releases/download/v.1/YYt_Funmodz786_.apk">
+            <i class="fas fa-download"></i> Download Number Hack APK
+        </a>
+        
+        <div class="notice">
+            <div class="notice-title">Hack Important Notice:</div>
+            <p>Create a New Account and Deposit ₹300 then our hack connects to our Private API and provides Back to Back Sure Short Numbers.</p>
+        </div>
+    </div>
+
+    <!-- YouTube Channel Card -->
+    <div class="youtube-section">
+        <h2 class="youtube-title"><i class="fab fa-youtube"></i> Our YouTube Channel</h2>
+        
+        <p class="youtube-description">
+            Our YouTube channel provides you with complete guidance on how to play any games and how to earn profit money. 
+            Learn winning strategies, money management techniques, and professional tips to maximize your earnings.
+        </p>
+        
+        <a class="btn btn-youtube" href="https://youtube.com/@funmodz786?si=WdsuHHnEVrx5oBFl" target="_blank">
+            <i class="fab fa-youtube"></i> Subscribe to YouTube Channel
+        </a>
+    </div>
+    
+    <p class="disclaimer">This service is for educational purposes only. Please play responsibly and within your means.</p>
+</div>
+
+<script>
+    // Countdown Timer - Set to 1 minute 30 seconds (90 seconds)
+    let totalSeconds = 90;
+    
+    function updateCountdown() {
+        if (totalSeconds <= 0) {
+            // Reset timer when it reaches 0
+            totalSeconds = 90;
+        }
+        
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        
+        totalSeconds--;
+        
+        // Add animation effect
+        document.querySelectorAll('.time-value').forEach(el => {
+            el.style.animation = 'none';
+            setTimeout(() => {
+                el.style.animation = 'pulseBox 2s infinite alternate';
+            }, 10);
+        });
+    }
+    
+    // Initialize countdown
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Add hover effect to cards
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-5px)';
+            card.style.boxShadow = '0 15px 40px rgba(255, 106, 43, 0.2)';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+            card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+        });
+    });
+
+    // Track button clicks for Meta Pixel
+    document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('click', function() {
+            fbq('track', 'Lead');
+        });
+    });
+</script>
+
+</body>
+</html>
